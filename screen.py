@@ -10,7 +10,7 @@ class Screen:
     def __init__(self, lines, cols):
         self.lines = lines
         self.cols = cols
-        self.build_grid()
+        self.grid = self.build_grid()
 
     def __str__(self):
         s = "[\n"
@@ -18,11 +18,11 @@ class Screen:
             for column in row:
                 s += "%s," % column
             s += "\n"
-        s += "\n]"
+        s += "]"
         return s
 
     def build_grid(self):
-        self.grid = [
+        return [
                 [
                     Cell(
                         OrientationTop,
