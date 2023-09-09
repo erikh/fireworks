@@ -1,4 +1,5 @@
 from cell import Cell
+from random import randint
 
 
 class Screen:
@@ -15,8 +16,22 @@ class Screen:
         s = ""
         for line in self.grid:
             for column in line:
-                s += "%s" % column
+                s += column.__str__()
         return s
 
     def build_grid(self):
-        return [[Cell()] * self.cols] * self.lines
+        grid = []
+        for _ in range(self.lines):
+            inner = []
+            grid.append(inner)
+            for _ in range(self.cols):
+                inner.append(Cell())
+        return grid
+
+    def randomize(self):
+        for line in self.grid:
+            for column in line:
+                index = randint(0, 8)
+                if index == 8:
+                    index = None
+                column.set_orientation(index)

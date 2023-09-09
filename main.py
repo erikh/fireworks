@@ -17,6 +17,7 @@ while True:
             s = Screen(lines, cols)
         iterations = 0
     print(s, end="")
+    s.randomize()
     move_cursor(-cols, -lines)
     sleep(0.1)
     iterations += 1

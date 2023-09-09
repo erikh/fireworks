@@ -28,14 +28,24 @@ class Cell:
         match self.orientation:
             case None:
                 return " "
-            case self.OrientationTop, self.OrientationBottom:
+            case self.OrientationTop:
                 return "|"
-            case self.OrientationLeft, self.OrientationRight:
+            case self.OrientationBottom:
+                return "|"
+            case self.OrientationLeft:
                 return "-"
-            case self.OrientationBottomLeft, self.OrientationTopRight:
+            case self.OrientationRight:
+                return "-"
+            case self.OrientationBottomLeft:
                 return "/"
-            case self.OrientationBottomRight, self.OrientationTopLeft:
+            case self.OrientationTopRight:
+                return "/"
+            case self.OrientationBottomRight:
                 return "\\"
+            case self.OrientationTopLeft:
+                return "\\"
+            case _:
+                return self.orientation.__str__()
 
     def __str__(self):
         return style_format(
