@@ -1,8 +1,10 @@
 from cell import Cell
+from firework import Firework
 from random import randint
 
 
 class Screen:
+    turtles = []
     grid = []
     lines = 0
     cols = 0
@@ -11,6 +13,11 @@ class Screen:
         self.lines = lines
         self.cols = cols
         self.grid = self.build_grid()
+        self.add_turtle(Firework(lines, cols))
+        self.add_turtle(Firework(lines, cols))
+        self.add_turtle(Firework(lines, cols))
+        self.add_turtle(Firework(lines, cols))
+        self.add_turtle(Firework(lines, cols))
 
     def __str__(self):
         s = ""
@@ -36,3 +43,10 @@ class Screen:
                 if index == 8:
                     index = None
                 column.set_orientation(index)
+
+    def add_turtle(self, turtle):
+        self.turtles.append(turtle)
+
+    def tick(self):
+        for turtle in self.turtles:
+            turtle.tick(self)
