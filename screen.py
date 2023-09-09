@@ -1,5 +1,4 @@
 from cell import Cell, OrientationTop
-from color import Color
 
 
 class Screen:
@@ -13,12 +12,10 @@ class Screen:
         self.grid = self.build_grid()
 
     def __str__(self):
-        s = "[\n"
-        for row in self.grid:
-            for column in row:
-                s += "%s," % column
-            s += "\n"
-        s += "]"
+        s = ""
+        for line in self.grid:
+            for column in line:
+                s += "%s" % column
         return s
 
     def build_grid(self):
@@ -26,8 +23,8 @@ class Screen:
                 [
                     Cell(
                         OrientationTop,
-                        Color(255, 255, 255),
-                        Color(0, 0, 0)
+                        "white",
+                        "on-blue"
                     )
                 ] * self.cols
         ] * self.lines

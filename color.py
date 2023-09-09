@@ -9,4 +9,4 @@ class Color:
         self.blue = blue
 
     def __str__(self):
-        return "Color(#%x%x%x)" % (self.red, self.green, self.blue)
+        return "#%x%x%x" % (self.red, self.green, self.blue)

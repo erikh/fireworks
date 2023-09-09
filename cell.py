@@ -1,4 +1,5 @@
-from color import Color
+from teletype.io import style_format
+from random import randint
 
 OrientationTop = 0
 OrientationTopRight = 1
@@ -12,8 +13,8 @@ OrientationTopLeft = 7
 
 class Cell:
     orientation = OrientationTop
-    fg = Color(255, 255, 255)
-    bg = Color(0, 0, 0)
+    fg = "white"
+    bg = ""
 
     def __init__(self, orientation, fg, bg):
         self.orientation = orientation
@@ -21,4 +22,7 @@ class Cell:
         self.bg = bg
 
     def __str__(self):
-        return "Cell(%d, %s, %s)" % (self.orientation, self.fg, self.bg)
+        return style_format(
+                "%s" % ["-", "/", "\\", "|"][randint(0, 3)],
+                "%s %s" % (self.fg, self.bg)
+        )
