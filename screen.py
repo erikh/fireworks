@@ -17,7 +17,8 @@ class Screen:
         for line in self.grid:
             for column in line:
                 s += column.__str__()
-        return s
+            s += "\n"
+        return s.strip()
 
     def build_grid(self):
         grid = []
