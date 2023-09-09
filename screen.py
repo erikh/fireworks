@@ -36,6 +36,9 @@ class Screen:
                 inner.append(Cell())
         return grid
 
+    # randomizes the orientations of the columns. this is mostly just to test
+    # the drawing functions. tick() will be used in typical scenarios in place
+    # of this, to allow turtles to draw to the screen.
     def randomize(self):
         for line in self.grid:
             for column in line:
