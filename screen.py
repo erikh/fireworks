@@ -1,4 +1,4 @@
-from cell import Cell, OrientationTop
+from cell import Cell
 
 
 class Screen:
@@ -19,12 +19,4 @@ class Screen:
         return s
 
     def build_grid(self):
-        return [
-                [
-                    Cell(
-                        OrientationTop,
-                        "white",
-                        "on-blue"
-                    )
-                ] * self.cols
-        ] * self.lines
+        return [[Cell()] * self.cols] * self.lines
