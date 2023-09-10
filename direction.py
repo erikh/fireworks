@@ -1,4 +1,5 @@
 from cell import Cell
+from random import randint
 
 
 class Direction:
@@ -15,12 +16,14 @@ class Direction:
     y = 0
     bearing = Up
     distance = 0
+    flare = False
 
-    def __init__(self, x, y, bearing, distance):
+    def __init__(self, x, y, bearing, distance, flare):
         self.x = x
         self.y = y
         self.bearing = bearing
         self.distance = distance
+        self.flare = flare
 
     def spread(self, distance=1):
         self.distance += distance
@@ -31,13 +34,36 @@ class Direction:
 
         match self.bearing:
             case self.Up:
-                for _ in range(self.distance):
+                for d in range(self.distance):
                     y -= 1
 
                     if y >= 0:
-                        screen.grid[y][x].set_orientation(Cell.OrientationTop)
+                        if self.flare:
+                            for x2 in range(
+                                    x-self.distance+d,
+                                    x+self.distance-d,
+                                    ):
+                                if x2 >= 0 and x2 < len(screen.grid[y]) - 1:
+                                    if screen.grid[y][x2].orientation \
+                                            is None:
+                                        screen.\
+                                            grid[y][x2].\
+                                            set_orientation(
+                                                Cell.OrientationTop
+                                            )
+                                    else:
+                                        if randint(0, 1) == 1:
+                                            screen.\
+                                                grid[y][x2].\
+                                                set_orientation(
+                                                    Cell.OrientationTop
+                                                )
+
+                        else:
+                            screen.grid[y][x].\
+                                    set_orientation(Cell.OrientationTop)
             case self.UpLeft:
-                for _ in range(self.distance):
+                for d in range(self.distance):
                     y -= 1
                     x -= 1
 

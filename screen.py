@@ -17,8 +17,6 @@ class Screen:
         self.add_turtle(Firework(lines, cols))
         self.add_turtle(Firework(lines, cols))
         self.add_turtle(Firework(lines, cols))
-        self.add_turtle(Firework(lines, cols))
-        self.add_turtle(Firework(lines, cols))
 
     def __str__(self):
         s = ""

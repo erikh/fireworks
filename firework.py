@@ -20,7 +20,7 @@ class Firework(Turtle):
         self.base_x = randint(0, cols)
         self.lines = lines
         self.embers = [Direction(
-            self.base_x, self.lines, Direction.Up, self.trail
+            self.base_x, self.lines, Direction.Up, self.trail, False
         )]
         self.total_iterations = 0
         self.iterations_since_last_animation = 0
@@ -41,7 +41,7 @@ class Firework(Turtle):
                 Direction.Right
                 ]:
             embers.append(Direction(
-                self.base_x, self.lines - self.trail, direction, 1
+                self.base_x, self.lines - self.trail, direction, 1, True
             ))
         self.embers = embers
         return
