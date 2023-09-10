@@ -5,7 +5,7 @@ from random import randint
 
 class Firework(Turtle):
     MaxIterations = 10
-    MaxDrawIterations = 20
+    MaxDrawIterations = 30
 
     detonated = False
     trail = 1
