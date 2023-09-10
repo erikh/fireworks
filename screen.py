@@ -14,7 +14,7 @@ class Screen:
         self.grid = self.build_grid()
         self.turtles = []
         for _ in range(10):
-            self.add_turtle(Firework(lines-1, cols-1))
+            self.add_turtle(Firework(lines, cols))
 
     def __str__(self):
         s = ""
