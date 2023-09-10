@@ -27,7 +27,7 @@ erase_screen()
 hide_cursor()
 while True:
     if iterations == 5:
-        s.add_turtle(Firework(lines-1, cols-1))
+        s.add_turtle(Firework(lines, cols))
         iterations = 0
 
     if iterations % 10 == 0:
