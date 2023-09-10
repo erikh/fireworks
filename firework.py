@@ -5,7 +5,6 @@ from random import randint
 
 class Firework(Turtle):
     MaxIterations = 10
-    MinIterations = 3
 
     detonated = False
     trail = 1
@@ -32,8 +31,10 @@ class Firework(Turtle):
                 self.embers[0].spread(self.speed)
                 self.trail += self.speed
                 self.iterations_since_last_animation = 0
-            elif randint(self.MinIterations, self.MaxIterations) == \
-                    self.MinIterations:
+            elif randint(
+                    self.iterations_since_last_animation,
+                    self.MaxIterations
+                    ) == self.MaxIterations:
                 self.embers[0].spread(self.speed)
                 self.trail += self.speed
                 self.iterations_since_last_animation = 0
