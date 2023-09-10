@@ -66,7 +66,9 @@ class Firework(Turtle):
             self.is_finished = True
 
     def update(self, screen):
-        if self.detonated:
+        if self.trail > self.lines:
+            self.is_finished = True
+        elif self.detonated:
             for ember in self.embers:
                 ember.spread(self.speed)
                 self.iterations_since_last_animation += 1
