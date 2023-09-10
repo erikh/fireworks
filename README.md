@@ -20,8 +20,6 @@ I learned a little bit about python and got to create something neat along the w
 
 Some notes:
 
--   10 fireworks are launched every 100 frames. They have a probability of
-    exploding on every frame. Each flare and explosion have random components to
-    the trail and characters used.
+-   10 fireworks are launched at start, and every 5 iterations (about half a second) a new one is launched. Fireworks trail north and have a chance of exploding on every frame. Each flare and explosion have random components to the trail and characters used. If the terminal is resized, it clears and rebuilds the scene anew.
 -   It is not very nice to your CPU! Maybe I'll fix that someday.
 -   I tried to take an asciicast of it but asciicasts.io won't allow uploads that large :) It's quite needy with the terminal.
