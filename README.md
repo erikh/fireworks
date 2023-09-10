@@ -5,6 +5,8 @@ This is a TUI "screen saver" that displays fireworks on the terminal. It will
 display them until Ctrl+C is pressed and is designed to work with `tmux`, etc,
 to provide some bling on your terminal when you only need half of it.
 
+Click [here](https://www.youtube.com/watch?v=Y973e3n8vxk) for a demo on YouTube.
+
 Packaging is probably going to be a mess because I'm a python newbie. Patches
 would be welcome here once the project boots as it'd be a good way for me to
 experience best practices, but until then chances are you're gonna have your
