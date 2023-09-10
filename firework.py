@@ -25,7 +25,7 @@ class Firework(Turtle):
         self.total_iterations = 0
         self.iterations_since_last_animation = 0
         self.max_iterations_before_detonation = \
-            (self.lines / self.speed * 0.8 * 5).__ceil__()
+            (self.lines / self.speed * 0.8 * 3).__ceil__()
 
     def create_embers(self):
         embers = []
@@ -50,7 +50,7 @@ class Firework(Turtle):
         for ember in self.embers:
             ember.draw(screen)
 
-    def update(self):
+    def update(self, screen):
         if self.detonated:
             for ember in self.embers:
                 ember.spread(self.speed)
@@ -73,6 +73,7 @@ class Firework(Turtle):
                     self.total_iterations,
                     self.max_iterations_before_detonation
                     ) == self.max_iterations_before_detonation:
+                self.embers[0].clear(screen)
                 self.detonated = True
                 self.create_embers()
 

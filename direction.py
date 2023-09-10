@@ -1,7 +1,3 @@
-from cell import Cell
-from random import randint
-
-
 class Direction:
     Up = 0
     Down = 1
@@ -16,6 +12,7 @@ class Direction:
     y = 0
     bearing = Up
     distance = 0
+    eraseto = 0
     flare = False
 
     def __init__(self, x, y, bearing, distance, flare):
@@ -23,10 +20,72 @@ class Direction:
         self.y = y
         self.bearing = bearing
         self.distance = distance
+        self.eraseto = 0
         self.flare = flare
 
     def spread(self, distance=1):
         self.distance += distance
+        self.eraseto += distance
+
+    def clear(self, screen):
+        x = self.x
+        y = self.y
+
+        match self.bearing:
+            case self.Up:
+                for _ in range(self.distance):
+                    y -= 1
+
+                    if y >= 0:
+                        screen.grid[y][x].set_empty()
+            case self.UpLeft:
+                for d in range(self.distance):
+                    y -= 1
+                    x -= 1
+
+                    if y >= 0 and x >= 0:
+                        screen.grid[y][x].set_explosion()
+
+            case self.UpRight:
+                for _ in range(self.distance):
+                    y -= 1
+                    x += 1
+
+                    if y >= 0 and x < len(screen.grid[y])-1:
+                        screen.grid[y][x].set_empty()
+
+            case self.Down:
+                for _ in range(self.distance):
+                    y += 1
+
+                    if y < len(screen.grid)-1:
+                        screen.grid[y][x].set_empty()
+            case self.DownLeft:
+                for _ in range(self.distance):
+                    y += 1
+                    x -= 1
+
+                    if y < len(screen.grid)-1 and x >= 0:
+                        screen.grid[y][x].set_empty()
+            case self.DownRight:
+                for _ in range(self.distance):
+                    y += 1
+                    x += 1
+
+                    if y < len(screen.grid)-1 and x < len(screen.grid[y])-1:
+                        screen.grid[y][x].set_empty()
+            case self.Left:
+                for _ in range(self.distance):
+                    x -= 1
+
+                    if x >= 0:
+                        screen.grid[y][x].set_empty()
+            case self.Right:
+                for _ in range(self.distance):
+                    x += 1
+
+                    if x < len(screen.grid[y])-1:
+                        screen.grid[y][x].set_empty()
 
     def draw(self, screen):
         x = self.x
@@ -34,85 +93,70 @@ class Direction:
 
         match self.bearing:
             case self.Up:
-                for d in range(self.distance):
+                for _ in range(self.distance):
                     y -= 1
 
                     if y >= 0:
                         if self.flare:
-                            for x2 in range(
-                                    x-self.distance+d,
-                                    x+self.distance-d,
-                                    ):
-                                if x2 >= 0 and x2 < len(screen.grid[y]) - 1:
-                                    if screen.grid[y][x2].orientation \
-                                            is None:
-                                        screen.\
-                                            grid[y][x2].\
-                                            set_orientation(
-                                                Cell.OrientationTop
-                                            )
-                                    else:
-                                        if randint(0, 1) == 1:
-                                            screen.\
-                                                grid[y][x2].\
-                                                set_orientation(
-                                                    Cell.OrientationTop
-                                                )
-
+                            screen.grid[y][x].set_explosion()
                         else:
-                            screen.grid[y][x].\
-                                    set_orientation(Cell.OrientationTop)
+                            screen.grid[y][x].set_rising()
             case self.UpLeft:
                 for d in range(self.distance):
                     y -= 1
                     x -= 1
 
                     if y >= 0 and x >= 0:
-                        screen.grid[y][x].\
-                                set_orientation(Cell.OrientationTopLeft)
+                        if self.flare:
+                            screen.grid[y][x].set_explosion()
+
             case self.UpRight:
                 for _ in range(self.distance):
                     y -= 1
                     x += 1
 
                     if y >= 0 and x < len(screen.grid[y])-1:
-                        screen.grid[y][x].\
-                                set_orientation(Cell.OrientationTopRight)
+                        if self.flare:
+                            screen.grid[y][x].set_explosion()
+
             case self.Down:
                 for _ in range(self.distance):
                     y += 1
 
                     if y < len(screen.grid)-1:
-                        screen.grid[y][x]\
-                                .set_orientation(Cell.OrientationBottom)
+                        if self.flare:
+                            screen.grid[y][x].set_explosion()
             case self.DownLeft:
                 for _ in range(self.distance):
                     y += 1
                     x -= 1
 
                     if y < len(screen.grid)-1 and x >= 0:
-                        screen.grid[y][x].\
-                                set_orientation(Cell.OrientationBottomLeft)
+                        if self.flare:
+                            screen.grid[y][x].set_explosion()
             case self.DownRight:
                 for _ in range(self.distance):
                     y += 1
                     x += 1
 
                     if y < len(screen.grid)-1 and x < len(screen.grid[y])-1:
-                        screen.grid[y][x].\
-                                set_orientation(Cell.OrientationBottomRight)
+                        if self.flare:
+                            screen.grid[y][x].set_explosion()
             case self.Left:
                 for _ in range(self.distance):
                     x -= 1
 
                     if x >= 0:
-                        screen.grid[y][x].set_orientation(Cell.OrientationLeft)
+                        if self.flare:
+                            screen.grid[y][x].set_explosion()
             case self.Right:
                 for _ in range(self.distance):
                     x += 1
 
                     if x < len(screen.grid[y])-1:
-                        screen.grid[y][x].set_orientation(Cell.OrientationLeft)
+                        if self.flare:
+                            screen.grid[y][x].set_explosion()
+        self.erase(screen)
 
     def erase(self, screen):
         x = self.x
@@ -120,54 +164,54 @@ class Direction:
 
         match self.bearing:
             case self.Up:
-                for _ in range(self.distance):
+                for _ in range(self.eraseto):
                     y -= 1
 
                     if y >= 0:
-                        screen.grid[y][x].set_orientation(None)
+                        screen.grid[y][x].set_empty()
             case self.UpLeft:
-                for _ in range(self.distance):
+                for _ in range(self.eraseto):
                     y -= 1
                     x -= 1
 
                     if y >= 0 and x >= 0:
-                        screen.grid[y][x].set_orientation(None)
+                        screen.grid[y][x].set_empty()
             case self.UpRight:
-                for _ in range(self.distance):
+                for _ in range(self.eraseto):
                     y -= 1
                     x += 1
 
                     if y >= 0 and x < len(screen.grid[y])-1:
-                        screen.grid[y][x].set_orientation(None)
+                        screen.grid[y][x].set_empty()
             case self.Down:
-                for _ in range(self.distance):
+                for _ in range(self.eraseto):
                     y += 1
 
                     if y < len(screen.grid)-1:
-                        screen.grid[y][x].set_orientation(None)
+                        screen.grid[y][x].set_empty()
             case self.DownLeft:
-                for _ in range(self.distance):
+                for _ in range(self.eraseto):
                     y += 1
                     x -= 1
 
                     if y < len(screen.grid)-1 and x >= 0:
-                        screen.grid[y][x].set_orientation(None)
+                        screen.grid[y][x].set_empty()
             case self.DownRight:
-                for _ in range(self.distance):
+                for _ in range(self.eraseto):
                     y += 1
                     x += 1
 
                     if y < len(screen.grid)-1 and x < len(screen.grid[y])-1:
-                        screen.grid[y][x].set_orientation(None)
+                        screen.grid[y][x].set_empty()
             case self.Left:
-                for _ in range(self.distance):
+                for _ in range(self.eraseto):
                     x -= 1
 
                     if x >= 0:
-                        screen.grid[y][x].set_orientation(None)
+                        screen.grid[y][x].set_empty()
             case self.Right:
-                for _ in range(self.distance):
+                for _ in range(self.eraseto):
                     x += 1
 
                     if x < len(screen.grid[y])-1:
-                        screen.grid[y][x].set_orientation(None)
+                        screen.grid[y][x].set_empty()

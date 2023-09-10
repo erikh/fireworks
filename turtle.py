@@ -9,4 +9,4 @@ class Turtle:
 
     def tick(self, screen):
         self.draw(screen)
-        self.update()
+        self.update(screen)
