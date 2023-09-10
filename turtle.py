@@ -1,8 +1,6 @@
 # logo represent
 
 class Turtle:
-    directions = []
-
     def update(self):
         return
 
@@ -10,7 +8,5 @@ class Turtle:
         return
 
     def tick(self, screen):
-        for direction in self.directions:
-            direction.draw(screen)
         self.draw(screen)
         self.update()

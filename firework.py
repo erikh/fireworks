@@ -4,14 +4,21 @@ from random import randint
 
 
 class Firework(Turtle):
+    MaxIterations = 10
+    MinIterations = 3
+
     detonated = False
     trail = 1
     embers = []
+    speed = 1
+    iterations_since_last_animation = 0
 
     def __init__(self, lines, cols):
-        self.embers.append(Direction(
+        self.speed = randint(1, 3)
+        self.embers = [Direction(
             randint(0, cols), lines, Direction.Up, self.trail
-        ))
+        )]
+        self.iterations_since_last_animation = 0
 
     def draw(self, screen):
         for ember in self.embers:
@@ -21,7 +28,17 @@ class Firework(Turtle):
         if self.detonated:
             return
         else:
-            self.embers[0].spread()
-            self.trail += 1
+            if self.iterations_since_last_animation == self.MaxIterations:
+                self.embers[0].spread(self.speed)
+                self.trail += self.speed
+                self.iterations_since_last_animation = 0
+            elif randint(self.MinIterations, self.MaxIterations) == \
+                    self.MinIterations:
+                self.embers[0].spread(self.speed)
+                self.trail += self.speed
+                self.iterations_since_last_animation = 0
+            else:
+                self.iterations_since_last_animation += 1
+
         return
 

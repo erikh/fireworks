@@ -18,8 +18,8 @@ class Direction:
         self.bearing = bearing
         self.distance = distance
 
-    def spread(self):
-        self.distance += 1
+    def spread(self, distance=1):
+        self.distance += distance
 
     def draw(self, screen):
         x = self.x
