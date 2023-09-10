@@ -1,4 +1,8 @@
 #!/usr/bin/env python
+#
+# firework is a small program to display fireworks in your terminal
+#
+
 from teletype.io import erase_screen, move_cursor, hide_cursor, show_cursor
 from termios import tcgetwinsize
 from time import sleep
