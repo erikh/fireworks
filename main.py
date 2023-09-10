@@ -32,7 +32,7 @@ while True:
             cols = newcols
             s = Screen(lines, cols)
 
-    if iterations == 150:
+    if iterations == 100:
         erase_screen()
         s = Screen(lines, cols)
         iterations = 0

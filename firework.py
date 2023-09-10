@@ -5,6 +5,7 @@ from random import randint
 
 class Firework(Turtle):
     MaxIterations = 10
+    MaxDrawIterations = 20
 
     detonated = False
     trail = 1
@@ -20,12 +21,12 @@ class Firework(Turtle):
         self.base_x = randint(0, cols)
         self.lines = lines
         self.embers = [Direction(
-            self.base_x, self.lines, Direction.Up, self.trail, False
+            self.base_x, self.lines, Direction.Up, self.speed, False
         )]
         self.total_iterations = 0
         self.iterations_since_last_animation = 0
         self.max_iterations_before_detonation = \
-            (self.lines / self.speed * 0.8 * 3).__ceil__()
+            (self.lines / self.speed * 0.8 * 5).__ceil__()
 
     def create_embers(self):
         embers = []
@@ -41,19 +42,29 @@ class Firework(Turtle):
                 Direction.Right
                 ]:
             embers.append(Direction(
-                self.base_x, self.lines - self.trail, direction, 1, True
+                self.base_x,
+                self.lines - self.trail,
+                direction,
+                randint(1, 10),
+                True
             ))
         self.embers = embers
         return
 
     def draw(self, screen):
-        for ember in self.embers:
-            ember.draw(screen)
+        if self.iterations_since_last_animation < self.MaxDrawIterations:
+            for ember in self.embers:
+                ember.draw(screen)
+        else:
+            for ember in self.embers:
+                ember.clear(screen)
+            self.embers = []
 
     def update(self, screen):
         if self.detonated:
             for ember in self.embers:
                 ember.spread(self.speed)
+                self.iterations_since_last_animation += 1
         else:
             if self.iterations_since_last_animation == self.MaxIterations:
                 self.embers[0].spread(self.speed)
@@ -75,6 +86,7 @@ class Firework(Turtle):
                     ) == self.max_iterations_before_detonation:
                 self.embers[0].clear(screen)
                 self.detonated = True
+                self.iterations_since_last_animation = 0
                 self.create_embers()
 
         return

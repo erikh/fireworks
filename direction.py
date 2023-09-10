@@ -44,7 +44,7 @@ class Direction:
                     x -= 1
 
                     if y >= 0 and x >= 0:
-                        screen.grid[y][x].set_explosion()
+                        screen.grid[y][x].set_empty()
 
             case self.UpRight:
                 for _ in range(self.distance):
