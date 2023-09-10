@@ -13,6 +13,7 @@ class Screen:
         self.lines = lines
         self.cols = cols
         self.grid = self.build_grid()
+        self.turtles = []
         self.add_turtle(Firework(lines, cols))
         self.add_turtle(Firework(lines, cols))
         self.add_turtle(Firework(lines, cols))
