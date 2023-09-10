@@ -37,5 +37,9 @@ class Screen:
         self.turtles.append(turtle)
 
     def tick(self):
+        turtles = []
         for turtle in self.turtles:
-            turtle.tick(self)
+            if not turtle.finished():
+                turtle.tick(self)
+                turtles.append(turtle)
+        self.turtles = turtles

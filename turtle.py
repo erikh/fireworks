@@ -10,3 +10,6 @@ class Turtle:
     def tick(self, screen):
         self.draw(screen)
         self.update(screen)
+
+    def finished(self):
+        return False

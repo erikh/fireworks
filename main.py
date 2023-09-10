@@ -6,8 +6,9 @@
 from teletype.io import erase_screen, move_cursor, hide_cursor, show_cursor
 from termios import tcgetwinsize
 from time import sleep
-from screen import Screen
 from signal import signal, SIGINT, SIGTERM
+from screen import Screen
+from firework import Firework
 
 
 def restore_cursor(*args):
@@ -25,17 +26,18 @@ s = Screen(lines, cols)
 erase_screen()
 hide_cursor()
 while True:
+    if iterations == 5:
+        s.add_turtle(Firework(lines-1, cols-1))
+        iterations = 0
+
     if iterations % 10 == 0:
         newlines, newcols = tcgetwinsize(0)
         if newlines != lines or newcols != cols:
             lines = newlines
             cols = newcols
+            erase_screen()
+            hide_cursor()
             s = Screen(lines, cols)
-
-    if iterations == 100:
-        erase_screen()
-        s = Screen(lines, cols)
-        iterations = 0
 
     print(s, end="")
     s.tick()
