@@ -6,6 +6,10 @@ class Direction:
     Down = 1
     Left = 2
     Right = 3
+    UpLeft = 4
+    UpRight = 5
+    DownLeft = 6
+    DownRight = 7
 
     x = 0
     y = 0
@@ -32,13 +36,45 @@ class Direction:
 
                     if y >= 0:
                         screen.grid[y][x].set_orientation(Cell.OrientationTop)
+            case self.UpLeft:
+                for _ in range(self.distance):
+                    y -= 1
+                    x -= 1
+
+                    if y >= 0 and x >= 0:
+                        screen.grid[y][x].\
+                                set_orientation(Cell.OrientationTopLeft)
+            case self.UpRight:
+                for _ in range(self.distance):
+                    y -= 1
+                    x += 1
+
+                    if y >= 0 and x < len(screen.grid[y])-1:
+                        screen.grid[y][x].\
+                                set_orientation(Cell.OrientationTopRight)
             case self.Down:
                 for _ in range(self.distance):
                     y += 1
 
-                    if y < screen.grid.len():
+                    if y < len(screen.grid)-1:
                         screen.grid[y][x]\
                                 .set_orientation(Cell.OrientationBottom)
+            case self.DownLeft:
+                for _ in range(self.distance):
+                    y += 1
+                    x -= 1
+
+                    if y < len(screen.grid)-1 and x >= 0:
+                        screen.grid[y][x].\
+                                set_orientation(Cell.OrientationBottomLeft)
+            case self.DownRight:
+                for _ in range(self.distance):
+                    y += 1
+                    x += 1
+
+                    if y < len(screen.grid)-1 and x < len(screen.grid[y])-1:
+                        screen.grid[y][x].\
+                                set_orientation(Cell.OrientationBottomRight)
             case self.Left:
                 for _ in range(self.distance):
                     x -= 1
@@ -49,7 +85,7 @@ class Direction:
                 for _ in range(self.distance):
                     x += 1
 
-                    if x < screen.grid[y].len():
+                    if x < len(screen.grid[y])-1:
                         screen.grid[y][x].set_orientation(Cell.OrientationLeft)
 
     def erase(self, screen):
@@ -63,11 +99,39 @@ class Direction:
 
                     if y >= 0:
                         screen.grid[y][x].set_orientation(None)
+            case self.UpLeft:
+                for _ in range(self.distance):
+                    y -= 1
+                    x -= 1
+
+                    if y >= 0 and x >= 0:
+                        screen.grid[y][x].set_orientation(None)
+            case self.UpRight:
+                for _ in range(self.distance):
+                    y -= 1
+                    x += 1
+
+                    if y >= 0 and x < len(screen.grid[y])-1:
+                        screen.grid[y][x].set_orientation(None)
             case self.Down:
                 for _ in range(self.distance):
                     y += 1
 
-                    if y < screen.grid.len():
+                    if y < len(screen.grid)-1:
+                        screen.grid[y][x].set_orientation(None)
+            case self.DownLeft:
+                for _ in range(self.distance):
+                    y += 1
+                    x -= 1
+
+                    if y < len(screen.grid)-1 and x >= 0:
+                        screen.grid[y][x].set_orientation(None)
+            case self.DownRight:
+                for _ in range(self.distance):
+                    y += 1
+                    x += 1
+
+                    if y < len(screen.grid)-1 and x < len(screen.grid[y])-1:
                         screen.grid[y][x].set_orientation(None)
             case self.Left:
                 for _ in range(self.distance):
@@ -79,5 +143,5 @@ class Direction:
                 for _ in range(self.distance):
                     x += 1
 
-                    if x < screen.grid[y].len():
+                    if x < len(screen.grid[y])-1:
                         screen.grid[y][x].set_orientation(None)

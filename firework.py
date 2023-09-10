@@ -10,14 +10,41 @@ class Firework(Turtle):
     trail = 1
     embers = []
     speed = 1
+    total_iterations = 0
     iterations_since_last_animation = 0
+    base_x = 0
+    lines = 0
 
     def __init__(self, lines, cols):
         self.speed = randint(1, 3)
+        self.base_x = randint(0, cols)
+        self.lines = lines
         self.embers = [Direction(
-            randint(0, cols), lines, Direction.Up, self.trail
+            self.base_x, self.lines, Direction.Up, self.trail
         )]
+        self.total_iterations = 0
         self.iterations_since_last_animation = 0
+        self.max_iterations_before_detonation = \
+            (self.lines / self.speed * 0.8).__ceil__()
+
+    def create_embers(self):
+        embers = []
+
+        for direction in [
+                Direction.Up,
+                Direction.UpLeft,
+                Direction.UpRight,
+                Direction.Down,
+                Direction.DownLeft,
+                Direction.DownRight,
+                Direction.Left,
+                Direction.Right
+                ]:
+            embers.append(Direction(
+                self.base_x, self.lines - self.trail, direction, 1
+            ))
+        self.embers = embers
+        return
 
     def draw(self, screen):
         for ember in self.embers:
@@ -25,7 +52,8 @@ class Firework(Turtle):
 
     def update(self):
         if self.detonated:
-            return
+            for ember in self.embers:
+                ember.spread(self.speed)
         else:
             if self.iterations_since_last_animation == self.MaxIterations:
                 self.embers[0].spread(self.speed)
@@ -40,6 +68,14 @@ class Firework(Turtle):
                 self.iterations_since_last_animation = 0
             else:
                 self.iterations_since_last_animation += 1
+
+            if (randint(
+                    self.total_iterations,
+                    self.max_iterations_before_detonation * 1000
+                    ) / 1000).__ceil__() == \
+                    self.max_iterations_before_detonation:
+                self.detonated = True
+                self.create_embers()
 
         return
 

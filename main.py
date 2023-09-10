@@ -25,13 +25,18 @@ s = Screen(lines, cols)
 erase_screen()
 hide_cursor()
 while True:
-    if iterations == 10:
+    if iterations % 10 == 0:
         newlines, newcols = tcgetwinsize(0)
         if newlines != lines or newcols != cols:
             lines = newlines
             cols = newcols
             s = Screen(lines, cols)
+
+    if iterations == 50:
+        erase_screen()
+        s = Screen(lines, cols)
         iterations = 0
+
     print(s, end="")
     s.tick()
     move_cursor(-cols, -lines)
