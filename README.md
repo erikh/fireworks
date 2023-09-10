@@ -24,3 +24,4 @@ Some notes:
     exploding on every frame. Each flare and explosion have random components to
     the trail and characters used.
 -   It is not very nice to your CPU! Maybe I'll fix that someday.
+-   I tried to take an asciicast of it but asciicasts.io won't allow uploads that large :) It's quite needy with the terminal.
