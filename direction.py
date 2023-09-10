@@ -1,3 +1,6 @@
+from random import randint
+
+
 class Direction:
     Up = 0
     Down = 1
@@ -14,14 +17,16 @@ class Direction:
     distance = 0
     eraseto = 0
     flare = False
+    color = "white"
 
-    def __init__(self, x, y, bearing, distance, flare):
+    def __init__(self, x, y, bearing, distance, flare, color):
         self.x = x
         self.y = y
         self.bearing = bearing
         self.distance = distance
         self.eraseto = 0
         self.flare = flare
+        self.color = color
 
     def spread(self, distance=1):
         self.distance += distance
@@ -97,6 +102,7 @@ class Direction:
                     y -= 1
 
                     if y >= 0:
+                        screen.grid[y][x].set_fg(self.color)
                         if self.flare:
                             screen.grid[y][x].set_explosion()
                         else:
@@ -108,6 +114,7 @@ class Direction:
 
                     if y >= 0 and x >= 0:
                         if self.flare:
+                            screen.grid[y][x].set_fg(self.color)
                             screen.grid[y][x].set_explosion()
 
             case self.UpRight:
@@ -117,6 +124,7 @@ class Direction:
 
                     if y >= 0 and x < len(screen.grid[y])-1:
                         if self.flare:
+                            screen.grid[y][x].set_fg(self.color)
                             screen.grid[y][x].set_explosion()
 
             case self.Down:
@@ -125,6 +133,7 @@ class Direction:
 
                     if y < len(screen.grid)-1:
                         if self.flare:
+                            screen.grid[y][x].set_fg(self.color)
                             screen.grid[y][x].set_explosion()
             case self.DownLeft:
                 for _ in range(self.distance):
@@ -133,6 +142,7 @@ class Direction:
 
                     if y < len(screen.grid)-1 and x >= 0:
                         if self.flare:
+                            screen.grid[y][x].set_fg(self.color)
                             screen.grid[y][x].set_explosion()
             case self.DownRight:
                 for _ in range(self.distance):
@@ -141,6 +151,7 @@ class Direction:
 
                     if y < len(screen.grid)-1 and x < len(screen.grid[y])-1:
                         if self.flare:
+                            screen.grid[y][x].set_fg(self.color)
                             screen.grid[y][x].set_explosion()
             case self.Left:
                 for _ in range(self.distance):
@@ -148,6 +159,7 @@ class Direction:
 
                     if x >= 0:
                         if self.flare:
+                            screen.grid[y][x].set_fg(self.color)
                             screen.grid[y][x].set_explosion()
             case self.Right:
                 for _ in range(self.distance):
@@ -155,6 +167,7 @@ class Direction:
 
                     if x < len(screen.grid[y])-1:
                         if self.flare:
+                            screen.grid[y][x].set_fg(self.color)
                             screen.grid[y][x].set_explosion()
         self.erase(screen)
 
