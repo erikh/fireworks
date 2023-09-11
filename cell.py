@@ -3,7 +3,8 @@ from random import randint
 
 
 class Cell:
-    ExplosionChars = ["*", "'", ".", "`", "#", " "]
+    ExplosionChars = ["*", "'", ".", "`", "#", "^", "@", "$", " "]
+    RisingChars = ["|", "^", ".", ",", "*", "$", ")", "(", "\\", "/", " "]
 
     character = " "
     fg = "white"
@@ -13,7 +14,9 @@ class Cell:
         self.character = " "
 
     def set_rising(self):
-        self.character = "|"
+        self.character = self.RisingChars[
+            randint(0, len(self.RisingChars)-1)
+        ]
 
     def set_explosion(self):
         self.character = self.ExplosionChars[
