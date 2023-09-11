@@ -18,6 +18,11 @@ Usage:
 -   `pip install teletype`
 -   `python main.py`
 
+**NOTE:** on OS X you will need homebrew python and then `pip3 install
+teletype` before things will work. I don't know why, but stock OS X python
+doesn't come with the `termios` library that seems to come standard with python
+3.
+
 I learned a little bit about python and got to create something neat along the way.
 
 Some notes:
