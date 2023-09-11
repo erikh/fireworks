@@ -1,6 +1,3 @@
-from random import randint
-
-
 class Direction:
     Up = 0
     Down = 1
@@ -33,7 +30,7 @@ class Direction:
         self.eraseto += distance
 
     def clear(self, screen):
-        x = self.x - 1
+        x = self.x
         y = self.y
 
         match self.bearing:
@@ -93,7 +90,7 @@ class Direction:
                         screen.grid[y][x].set_empty()
 
     def draw(self, screen):
-        x = self.x - 1
+        x = self.x
         y = self.y
 
         match self.bearing:
@@ -172,7 +169,7 @@ class Direction:
         self.erase(screen)
 
     def erase(self, screen):
-        x = self.x - 1
+        x = self.x
         y = self.y
 
         match self.bearing:

@@ -21,7 +21,7 @@ class Firework(Turtle):
         self.color = ["", "bright "][randint(0, 1)] + \
                 self.Colors[randint(0, len(self.Colors)-1)]
         self.speed = randint(1, 3)
-        self.base_x = randint(0, cols)
+        self.base_x = randint(0, cols-1)
         self.lines = lines
         self.embers = [Direction(
             self.base_x,
@@ -106,4 +106,3 @@ class Firework(Turtle):
             self.is_finished = True
 
         return
-
