@@ -2,17 +2,33 @@ from turtle import Turtle
 from direction import Direction
 from random import randint, choice
 
+BrightWhite = "\x1b[38;2;255;255;255m"
+White = "\x1b[38;2;128;128;128m"
+Red = "\x1b[38;2;255;32;32m"
+BrightRed = "\x1b[38;2;255;64;64m"
+Blue = "\x1b[38;2;32;32;255m"
+BrightBlue = "\x1b[38;2;64;64;255m"
+Green = "\x1b[38;2;32;255;32m"
+BrightGreen = "\x1b[38;2;64;255;64m"
+Cyan = "\x1b[38;2;32;128;255m"
+BrightCyan = "\x1b[38;2;64;192;255m"
+Magenta = "\x1b[38;2;128;32;255m"
+BrightMagenta = "\x1b[38;2;192;64;255m"
+Yellow = "\x1b[38;2;128;255;32m"
+BrightYellow = "\x1b[38;2;192;255;64m"
+
+Colors = [
+    [White, BrightWhite],
+    [Red, BrightRed, White, BrightWhite],
+    [Blue, BrightBlue, White, BrightWhite],
+    [Green, BrightGreen, White, BrightWhite],
+    [Cyan, BrightCyan, White, BrightWhite],
+    [Magenta, BrightMagenta, White, BrightWhite],
+    [Yellow, BrightYellow, White, BrightWhite]
+]
+
 
 class Firework(Turtle):
-    Colors = [
-            ["white", "bright white"],
-            ["red", "bright red", "white", "bright white"],
-            ["blue", "bright blue", "white", "bright white"],
-            ["green", "bright green", "white", "bright white"],
-            ["cyan", "bright cyan", "white", "bright white"],
-            ["magenta", "bright magenta", "white", "bright white"],
-            ["yellow", "bright yellow", "white", "bright white"]
-            ]
     MaxIterations = 10
     MaxDrawIterations = 30
 
@@ -26,7 +42,7 @@ class Firework(Turtle):
     lines = 0
 
     def __init__(self, lines, cols):
-        self.colors = choice(self.Colors)
+        self.colors = choice(Colors)
         self.speed = randint(1, 3)
         self.base_x = randint(0, cols-1)
         self.lines = lines

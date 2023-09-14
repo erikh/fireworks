@@ -17,7 +17,6 @@ class Direction:
     distance = 0
     eraseto = 0
     flare = False
-    color = "white"
 
     def __init__(self, x, y, bearing, distance, flare, colors):
         self.x = x
@@ -54,10 +53,10 @@ class Direction:
             if x >= 0 and y >= 0 and \
                y < len(screen.grid) and x < len(screen.grid[y]):
                 if self.flare:
-                    screen.grid[y][x].set_fg(choice(self.colors))
+                    screen.grid[y][x].set_color(choice(self.colors))
                     screen.grid[y][x].set_explosion()
                 elif self.bearing == self.Up:
-                    screen.grid[y][x].set_fg(choice(self.colors))
+                    screen.grid[y][x].set_color(choice(self.colors))
                     screen.grid[y][x].set_rising()
         self.erase(screen)
 

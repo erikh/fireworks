@@ -1,4 +1,3 @@
-from teletype.io import style_format
 from random import choice
 
 
@@ -7,8 +6,7 @@ class Cell:
     RisingChars = ["|", "^", ".", ",", "*", "$", ")", "(", "\\", "/", " "]
 
     character = " "
-    fg = "white"
-    bg = ""
+    color = "\x1b[0m"
 
     def set_empty(self):
         self.character = " "
@@ -22,14 +20,8 @@ class Cell:
     def set_character(self, character):
         self.character = character
 
-    def set_fg(self, fg):
-        self.fg = fg
-
-    def set_bg(self, bg):
-        self.bg = bg
+    def set_color(self, color):
+        self.color = color
 
     def __str__(self):
-        return style_format(
-            "%s" % self.character,
-            "%s %s" % (self.fg, self.bg)
-        )
+        return "%s%s\x1b[0m" % (self.color, self.character)
