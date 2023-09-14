@@ -19,8 +19,8 @@ python doesn't come with the `termios` library that seems to come standard with
 python 3.
 
 I learned a little bit about python and got to create something neat along the
-way. Big thanks to @jpetazzo for help with simplifying some of the drawing
-logic, packaging and general feedback.
+way. Big thanks to [@jpetazzo](https://github.com/jpetazzo) for help with
+simplifying some of the drawing logic, packaging and general feedback.
 
 Some notes:
 
