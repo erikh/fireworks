@@ -1,4 +1,5 @@
-from random import choice;
+from random import choice
+
 
 class Direction:
     Up = (0, -1)
