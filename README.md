@@ -5,7 +5,8 @@ This is a TUI "screen saver" that displays fireworks on the terminal. It will
 display them until Ctrl+C is pressed and is designed to work with `tmux`, etc,
 to provide some bling on your terminal when you only need half of it.
 
-Click [here](https://www.youtube.com/watch?v=Y973e3n8vxk) for a demo on YouTube.
+Now with 256-color support! Click
+[here](https://www.youtube.com/watch?v=embSVDBlv5Q) for a demo on YouTube.
 
 Usage:
 
