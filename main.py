@@ -26,7 +26,7 @@ s = Screen(lines, cols)
 erase_screen()
 hide_cursor()
 while True:
-    if iterations % 10 == 0:
+    if iterations == 5:
         newlines, newcols = tcgetwinsize(0)
         if newlines != lines or newcols != cols:
             lines = newlines
@@ -34,9 +34,8 @@ while True:
             erase_screen()
             hide_cursor()
             s = Screen(lines, cols)
-
-    if iterations == 5:
-        s.add_turtle(Firework(lines, cols))
+        else:
+            s.add_turtle(Firework(lines, cols))
         iterations = 0
 
     print(s, end="")
