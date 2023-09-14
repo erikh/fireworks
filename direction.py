@@ -1,3 +1,5 @@
+from random import choice;
+
 class Direction:
     Up = (0, -1)
     Down = (0, 1)
@@ -16,14 +18,14 @@ class Direction:
     flare = False
     color = "white"
 
-    def __init__(self, x, y, bearing, distance, flare, color):
+    def __init__(self, x, y, bearing, distance, flare, colors):
         self.x = x
         self.y = y
         self.bearing = bearing
         self.distance = distance
         self.eraseto = 0
         self.flare = flare
-        self.color = color
+        self.colors = colors
 
     def spread(self, distance=1):
         self.distance += distance
@@ -51,10 +53,10 @@ class Direction:
             if x >= 0 and y >= 0 and \
                y < len(screen.grid) and x < len(screen.grid[y]):
                 if self.flare:
-                    screen.grid[y][x].set_fg(self.color)
+                    screen.grid[y][x].set_fg(choice(self.colors))
                     screen.grid[y][x].set_explosion()
                 elif self.bearing == self.Up:
-                    screen.grid[y][x].set_fg(self.color)
+                    screen.grid[y][x].set_fg(choice(self.colors))
                     screen.grid[y][x].set_rising()
         self.erase(screen)
 

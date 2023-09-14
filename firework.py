@@ -4,7 +4,15 @@ from random import randint, choice
 
 
 class Firework(Turtle):
-    Colors = ["white", "red", "blue", "green", "cyan", "magenta", "yellow"]
+    Colors = [
+            ["white", "bright white"],
+            ["red", "bright red", "white", "bright white"],
+            ["blue", "bright blue", "white", "bright white"],
+            ["green", "bright green", "white", "bright white"],
+            ["cyan", "bright cyan", "white", "bright white"],
+            ["magenta", "bright magenta", "white", "bright white"],
+            ["yellow", "bright yellow", "white", "bright white"]
+            ]
     MaxIterations = 10
     MaxDrawIterations = 30
 
@@ -18,7 +26,7 @@ class Firework(Turtle):
     lines = 0
 
     def __init__(self, lines, cols):
-        self.color = choice(["", "bright "]) + choice(self.Colors)
+        self.colors = choice(self.Colors)
         self.speed = randint(1, 3)
         self.base_x = randint(0, cols-1)
         self.lines = lines
@@ -28,7 +36,7 @@ class Firework(Turtle):
             Direction.Up,
             self.speed,
             False,
-            self.color
+            self.colors
         )]
         self.total_iterations = 0
         self.iterations_since_last_animation = 0
@@ -55,7 +63,7 @@ class Firework(Turtle):
                 direction,
                 randint(1, 10),
                 True,
-                self.color
+                self.colors
             ))
         self.embers = embers
         return
