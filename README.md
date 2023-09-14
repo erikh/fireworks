@@ -7,23 +7,20 @@ to provide some bling on your terminal when you only need half of it.
 
 Click [here](https://www.youtube.com/watch?v=Y973e3n8vxk) for a demo on YouTube.
 
-Packaging is probably going to be a mess because I'm a python newbie. Patches
-would be welcome here once the project boots as it'd be a good way for me to
-experience best practices, but until then chances are you're gonna have your
-work cut out for you.
-
 Usage:
 
 -   Clone the repo and `cd` into it
--   `pip install teletype`
+-   `pip install -r requirements.txt`
 -   `python main.py`
 
-**NOTE:** on OS X you will need homebrew python and then `pip3 install
-teletype` before things will work. I don't know why, but stock OS X python
-doesn't come with the `termios` library that seems to come standard with python
-3.
+**NOTE:** on OS X you will need homebrew python and then `pip3 install -r
+requirements.txt` before things will work. I don't know why, but stock OS X
+python doesn't come with the `termios` library that seems to come standard with
+python 3.
 
-I learned a little bit about python and got to create something neat along the way.
+I learned a little bit about python and got to create something neat along the
+way. Big thanks to @jpetazzo for help with simplifying some of the drawing
+logic, packaging and general feedback.
 
 Some notes:
 
