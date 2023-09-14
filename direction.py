@@ -38,7 +38,7 @@ class Direction:
             y += self.bearing[1]
 
             if x >= 0 and y >= 0 and \
-               y < len(screen.grid)-1 and x < len(screen.grid[y])-1:
+               y < len(screen.grid) and x < len(screen.grid[y]):
                 screen.grid[y][x].set_empty()
 
     def draw(self, screen):
@@ -49,7 +49,7 @@ class Direction:
             x += self.bearing[0]
             y += self.bearing[1]
             if x >= 0 and y >= 0 and \
-               y < len(screen.grid)-1 and x < len(screen.grid[y])-1:
+               y < len(screen.grid) and x < len(screen.grid[y]):
                 if self.flare:
                     screen.grid[y][x].set_fg(self.color)
                     screen.grid[y][x].set_explosion()
@@ -66,5 +66,5 @@ class Direction:
             x += self.bearing[0]
             y += self.bearing[1]
             if x >= 0 and y >= 0 and \
-               y < len(screen.grid)-1 and x < len(screen.grid[y])-1:
+               y < len(screen.grid) and x < len(screen.grid[y]):
                 screen.grid[y][x].set_empty()

@@ -39,7 +39,7 @@ while True:
         iterations = 0
 
     print(s, end="")
-    s.tick()
     move_cursor(-cols, -lines)
+    s.tick()
     sleep(0.1)
     iterations += 1
