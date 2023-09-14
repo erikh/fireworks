@@ -1,5 +1,5 @@
 from teletype.io import style_format
-from random import randint
+from random import choice
 
 
 class Cell:
@@ -14,14 +14,10 @@ class Cell:
         self.character = " "
 
     def set_rising(self):
-        self.character = self.RisingChars[
-            randint(0, len(self.RisingChars)-1)
-        ]
+        self.character = choice(self.RisingChars)
 
     def set_explosion(self):
-        self.character = self.ExplosionChars[
-            randint(0, len(self.ExplosionChars)-1)
-        ]
+        self.character = choice(self.ExplosionChars)
 
     def set_character(self, character):
         self.character = character

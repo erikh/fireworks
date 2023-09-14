@@ -1,12 +1,12 @@
 class Direction:
-    Up = 0
-    Down = 1
-    Left = 2
-    Right = 3
-    UpLeft = 4
-    UpRight = 5
-    DownLeft = 6
-    DownRight = 7
+    Up = (0, -1)
+    Down = (0, 1)
+    Left = (-1, 0)
+    Right = (1, 0)
+    UpLeft = (-1, -1)
+    UpRight = (1, -1)
+    DownLeft = (-1, 1)
+    DownRight = (1, 1)
 
     x = 0
     y = 0
@@ -33,195 +33,38 @@ class Direction:
         x = self.x
         y = self.y
 
-        match self.bearing:
-            case self.Up:
-                for _ in range(self.distance):
-                    y -= 1
+        for _ in range(self.distance):
+            x += self.bearing[0]
+            y += self.bearing[1]
 
-                    if y >= 0:
-                        screen.grid[y][x].set_empty()
-            case self.UpLeft:
-                for d in range(self.distance):
-                    y -= 1
-                    x -= 1
-
-                    if y >= 0 and x >= 0:
-                        screen.grid[y][x].set_empty()
-
-            case self.UpRight:
-                for _ in range(self.distance):
-                    y -= 1
-                    x += 1
-
-                    if y >= 0 and x < len(screen.grid[y])-1:
-                        screen.grid[y][x].set_empty()
-
-            case self.Down:
-                for _ in range(self.distance):
-                    y += 1
-
-                    if y < len(screen.grid)-1:
-                        screen.grid[y][x].set_empty()
-            case self.DownLeft:
-                for _ in range(self.distance):
-                    y += 1
-                    x -= 1
-
-                    if y < len(screen.grid)-1 and x >= 0:
-                        screen.grid[y][x].set_empty()
-            case self.DownRight:
-                for _ in range(self.distance):
-                    y += 1
-                    x += 1
-
-                    if y < len(screen.grid)-1 and x < len(screen.grid[y])-1:
-                        screen.grid[y][x].set_empty()
-            case self.Left:
-                for _ in range(self.distance):
-                    x -= 1
-
-                    if x >= 0:
-                        screen.grid[y][x].set_empty()
-            case self.Right:
-                for _ in range(self.distance):
-                    x += 1
-
-                    if x < len(screen.grid[y])-1:
-                        screen.grid[y][x].set_empty()
+            if x >= 0 and y >= 0 and \
+               y < len(screen.grid)-1 and x < len(screen.grid[y])-1:
+                screen.grid[y][x].set_empty()
 
     def draw(self, screen):
         x = self.x
         y = self.y
 
-        match self.bearing:
-            case self.Up:
-                for _ in range(self.distance):
-                    y -= 1
-
-                    if y >= 0:
-                        screen.grid[y][x].set_fg(self.color)
-                        if self.flare:
-                            screen.grid[y][x].set_explosion()
-                        else:
-                            screen.grid[y][x].set_rising()
-            case self.UpLeft:
-                for d in range(self.distance):
-                    y -= 1
-                    x -= 1
-
-                    if y >= 0 and x >= 0:
-                        if self.flare:
-                            screen.grid[y][x].set_fg(self.color)
-                            screen.grid[y][x].set_explosion()
-
-            case self.UpRight:
-                for _ in range(self.distance):
-                    y -= 1
-                    x += 1
-
-                    if y >= 0 and x < len(screen.grid[y])-1:
-                        if self.flare:
-                            screen.grid[y][x].set_fg(self.color)
-                            screen.grid[y][x].set_explosion()
-
-            case self.Down:
-                for _ in range(self.distance):
-                    y += 1
-
-                    if y < len(screen.grid)-1:
-                        if self.flare:
-                            screen.grid[y][x].set_fg(self.color)
-                            screen.grid[y][x].set_explosion()
-            case self.DownLeft:
-                for _ in range(self.distance):
-                    y += 1
-                    x -= 1
-
-                    if y < len(screen.grid)-1 and x >= 0:
-                        if self.flare:
-                            screen.grid[y][x].set_fg(self.color)
-                            screen.grid[y][x].set_explosion()
-            case self.DownRight:
-                for _ in range(self.distance):
-                    y += 1
-                    x += 1
-
-                    if y < len(screen.grid)-1 and x < len(screen.grid[y])-1:
-                        if self.flare:
-                            screen.grid[y][x].set_fg(self.color)
-                            screen.grid[y][x].set_explosion()
-            case self.Left:
-                for _ in range(self.distance):
-                    x -= 1
-
-                    if x >= 0:
-                        if self.flare:
-                            screen.grid[y][x].set_fg(self.color)
-                            screen.grid[y][x].set_explosion()
-            case self.Right:
-                for _ in range(self.distance):
-                    x += 1
-
-                    if x < len(screen.grid[y])-1:
-                        if self.flare:
-                            screen.grid[y][x].set_fg(self.color)
-                            screen.grid[y][x].set_explosion()
+        for _ in range(self.distance):
+            x += self.bearing[0]
+            y += self.bearing[1]
+            if x >= 0 and y >= 0 and \
+               y < len(screen.grid)-1 and x < len(screen.grid[y])-1:
+                if self.flare:
+                    screen.grid[y][x].set_fg(self.color)
+                    screen.grid[y][x].set_explosion()
+                elif self.bearing == self.Up:
+                    screen.grid[y][x].set_fg(self.color)
+                    screen.grid[y][x].set_rising()
         self.erase(screen)
 
     def erase(self, screen):
         x = self.x
         y = self.y
 
-        match self.bearing:
-            case self.Up:
-                for _ in range(self.eraseto):
-                    y -= 1
-
-                    if y >= 0:
-                        screen.grid[y][x].set_empty()
-            case self.UpLeft:
-                for _ in range(self.eraseto):
-                    y -= 1
-                    x -= 1
-
-                    if y >= 0 and x >= 0:
-                        screen.grid[y][x].set_empty()
-            case self.UpRight:
-                for _ in range(self.eraseto):
-                    y -= 1
-                    x += 1
-
-                    if y >= 0 and x < len(screen.grid[y])-1:
-                        screen.grid[y][x].set_empty()
-            case self.Down:
-                for _ in range(self.eraseto):
-                    y += 1
-
-                    if y < len(screen.grid)-1:
-                        screen.grid[y][x].set_empty()
-            case self.DownLeft:
-                for _ in range(self.eraseto):
-                    y += 1
-                    x -= 1
-
-                    if y < len(screen.grid)-1 and x >= 0:
-                        screen.grid[y][x].set_empty()
-            case self.DownRight:
-                for _ in range(self.eraseto):
-                    y += 1
-                    x += 1
-
-                    if y < len(screen.grid)-1 and x < len(screen.grid[y])-1:
-                        screen.grid[y][x].set_empty()
-            case self.Left:
-                for _ in range(self.eraseto):
-                    x -= 1
-
-                    if x >= 0:
-                        screen.grid[y][x].set_empty()
-            case self.Right:
-                for _ in range(self.eraseto):
-                    x += 1
-
-                    if x < len(screen.grid[y])-1:
-                        screen.grid[y][x].set_empty()
+        for _ in range(self.eraseto):
+            x += self.bearing[0]
+            y += self.bearing[1]
+            if x >= 0 and y >= 0 and \
+               y < len(screen.grid)-1 and x < len(screen.grid[y])-1:
+                screen.grid[y][x].set_empty()

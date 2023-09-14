@@ -1,6 +1,6 @@
 from turtle import Turtle
 from direction import Direction
-from random import randint
+from random import randint, choice
 
 
 class Firework(Turtle):
@@ -18,8 +18,7 @@ class Firework(Turtle):
     lines = 0
 
     def __init__(self, lines, cols):
-        self.color = ["", "bright "][randint(0, 1)] + \
-                self.Colors[randint(0, len(self.Colors)-1)]
+        self.color = choice(["", "bright "]) + choice(self.Colors)
         self.speed = randint(1, 3)
         self.base_x = randint(0, cols-1)
         self.lines = lines
